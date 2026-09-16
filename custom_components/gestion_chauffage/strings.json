@@ -1,43 +1,27 @@
 {
-  "title": "Gestion Chauffage",
+  "title": "Chauffage Intelligent",
   "config": {
     "step": {
       "user": {
         "title": "Configuration du chauffage",
-        "description": "Configurez le mode de fonctionnement et votre système de chauffage.",
+        "description": "Sélectionnez les entités Home Assistant utilisées pour gérer votre chauffage.",
         "data": {
-          "mode": "Mode de fonctionnement",
+          "mode_selector": "Sélecteur du mode de chauffage",
           "heating_type": "Type de chauffage",
           "boiler_entity": "Chaudière"
         },
         "data_description": {
-          "mode": "Sélectionnez le mode de fonctionnement général.",
-          "heating_type": "Sélectionnez un chauffage au gaz ou électrique.",
+          "mode_selector": "Sélectionnez une entité input_select ou select existante dans Home Assistant.",
+          "heating_type": "Sélectionnez le type de chauffage de votre installation.",
           "boiler_entity": "Sélectionnez l'entité climate ou switch qui commande la chaudière. Ce choix est obligatoire pour un chauffage au gaz."
         }
       }
     },
     "error": {
-      "boiler_required": "Vous devez sélectionner une chaudière lorsque le chauffage au gaz est utilisé."
+      "boiler_required": "Vous devez sélectionner une chaudière lorsque le type de chauffage est Gaz."
     },
     "abort": {
-      "already_configured": "L'intégration est déjà configurée."
-    }
-  },
-  "selector": {
-    "operating_mode": {
-      "options": {
-        "auto": "Automatique",
-        "comfort": "Confort",
-        "eco": "Éco",
-        "away": "Absence"
-      }
-    },
-    "heating_type": {
-      "options": {
-        "gas": "Gaz",
-        "electric": "Électrique"
-      }
+      "already_configured": "Chauffage Intelligent est déjà configuré."
     }
   }
 }
