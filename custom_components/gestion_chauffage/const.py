@@ -1,6 +1,6 @@
 """Constants for the Chauffage Intelligent integration."""
 
-DOMAIN = "chauffage_intelligent"
+DOMAIN = "gestion_chauffage"
 
 CONF_MODE_SELECTOR = "mode_selector"
 CONF_HEATING_TYPE = "heating_type"
