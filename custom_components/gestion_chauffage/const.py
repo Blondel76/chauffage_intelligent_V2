@@ -1,15 +1,10 @@
-"""Constants for the Gestion Chauffage integration."""
+"""Constants for the Chauffage Intelligent integration."""
 
-DOMAIN = "gestion_chauffage"
+DOMAIN = "chauffage_intelligent"
 
-CONF_MODE = "mode"
+CONF_MODE_SELECTOR = "mode_selector"
 CONF_HEATING_TYPE = "heating_type"
 CONF_BOILER_ENTITY = "boiler_entity"
 
 HEATING_TYPE_GAS = "gas"
 HEATING_TYPE_ELECTRIC = "electric"
-
-MODE_AUTO = "auto"
-MODE_COMFORT = "comfort"
-MODE_ECO = "eco"
-MODE_AWAY = "away"
