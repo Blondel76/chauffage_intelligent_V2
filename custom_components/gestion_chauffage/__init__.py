@@ -8,6 +8,14 @@ from homeassistant.core import HomeAssistant
 from .const import DOMAIN
 
 
+async def async_setup(
+    hass: HomeAssistant,
+    config: dict,
+) -> bool:
+    """Set up the integration."""
+    return True
+
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
@@ -30,8 +38,9 @@ async def async_unload_entry(
 ) -> bool:
     """Unload a config entry."""
 
-    hass.data[DOMAIN].pop(entry.entry_id, None)
+    if DOMAIN in hass.data:
+        hass.data[DOMAIN].pop(entry.entry_id, None)
 
-    if not hass.datahass.data.pop(DOMAIN)
+        if not hass.datahass.data.pop(DOMAIN)
 
     return True
