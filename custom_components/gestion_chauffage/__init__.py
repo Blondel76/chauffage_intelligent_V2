@@ -1,4 +1,4 @@
-"""The Chauffage Intelligent integration."""
+"""The Gestion Chauffage integration."""
 
 from __future__ import annotations
 
@@ -12,14 +12,16 @@ from .const import (
     CONF_HEATING_TYPE,
     CONF_MODE_SELECTOR,
     DOMAIN,
+    PLATFORMS,
 )
+from .entity import GestionChauffageRuntimeData
 
 
 async def async_setup(
     hass: HomeAssistant,
     config: dict[str, Any],
 ) -> bool:
-    """Set up the integration from YAML."""
+    """Set up Gestion Chauffage from YAML."""
 
     return True
 
@@ -28,15 +30,22 @@ async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
 ) -> bool:
-    """Set up Chauffage Intelligent from a config entry."""
+    """Set up Gestion Chauffage from a config entry."""
+
+    runtime_data = GestionChauffageRuntimeData()
 
     hass.data.setdefault(DOMAIN, {})
-
     hass.data[DOMAIN][entry.entry_id] = {
+        "runtime_data": runtime_data,
         CONF_MODE_SELECTOR: entry.data[CONF_MODE_SELECTOR],
         CONF_HEATING_TYPE: entry.data[CONF_HEATING_TYPE],
         CONF_BOILER_ENTITY: entry.data.get(CONF_BOILER_ENTITY),
     }
+
+    await hass.config_entries.async_forward_entry_setups(
+        entry,
+        PLATFORMS,
+    )
 
     return True
 
@@ -47,10 +56,14 @@ async def async_unload_entry(
 ) -> bool:
     """Unload a config entry."""
 
-    if DOMAIN in hass.data:
+    unload_ok = await hass.config_entries.async_unload_platforms(
+        entry,
+        PLATFORMS,
+    )
+
+    if unload_ok and DOMAIN in hass.data:
         hass.data[DOMAIN].pop(entry.entry_id, None)
 
-        if not hass.data[DOMAIN]:
-            hass.data.pop(DOMAIN, None)
+        if not hass.datahass.data.pop(DOMAIN, None)
 
-    return True
+    return unload_ok
