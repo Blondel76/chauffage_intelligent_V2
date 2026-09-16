@@ -6,10 +6,10 @@
   ],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://github.com/TON_UTILISATEUR/TON_DEPOT",
+  "documentation": "https://github.com/Blondel76/chauffage_intelligent_V2",
   "integration_type": "service",
   "iot_class": "calculated",
-  "issue_tracker": "https://github.com/TON_UTILISATEUR/TON_DEPOT/issues",
+  "issue_tracker": "https://github.com/Blondel76/chauffage_intelligent_V2/issues",
   "requirements": [],
   "version": "1.0.0"
 }
