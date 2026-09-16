@@ -1,5 +1,5 @@
 {
-  "title": "Chauffage Intelligent",
+  "title": "Gestion Chauffage",
   "config": {
     "step": {
       "user": {
@@ -15,13 +15,16 @@
           "heating_type": "Sélectionnez le type de chauffage de votre installation.",
           "boiler_entity": "Sélectionnez l'entité climate ou switch qui commande la chaudière. Ce choix est obligatoire pour un chauffage au gaz."
         }
-      }
-    },
-    "error": {
-      "boiler_required": "Vous devez sélectionner une chaudière lorsque le type de chauffage est Gaz."
-    },
-    "abort": {
-      "already_configured": "Chauffage Intelligent est déjà configuré."
-    }
-  }
-}
+      },
+      "reconfigure": {
+        "title": "Modifier la configuration",
+        "description": "Modifiez les entités et le type de chauffage utilisés par l'intégration.",
+        "data": {
+          "mode_selector": "Sélecteur du mode de chauffage",
+          "heating_type": "Type de chauffage",
+          "boiler_entity": "Chaudière"
+        },
+        "data_description": {
+          "mode_selector": "Sélectionnez une entité input_select ou select existante dans Home Assistant.",
+          "heating_type": "Sélectionnez le type de chauffage de votre installation.",
+          "boiler_entity": "Sé
