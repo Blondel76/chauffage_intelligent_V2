@@ -1,0 +1,43 @@
+{
+  "title": "Gestion Chauffage",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configuration du chauffage",
+        "description": "Configurez le mode de fonctionnement et votre système de chauffage.",
+        "data": {
+          "mode": "Mode de fonctionnement",
+          "heating_type": "Type de chauffage",
+          "boiler_entity": "Chaudière"
+        },
+        "data_description": {
+          "mode": "Sélectionnez le mode de fonctionnement général.",
+          "heating_type": "Sélectionnez un chauffage au gaz ou électrique.",
+          "boiler_entity": "Sélectionnez l'entité climate ou switch qui commande la chaudière. Ce choix est obligatoire pour un chauffage au gaz."
+        }
+      }
+    },
+    "error": {
+      "boiler_required": "Vous devez sélectionner une chaudière lorsque le chauffage au gaz est utilisé."
+    },
+    "abort": {
+      "already_configured": "L'intégration est déjà configurée."
+    }
+  },
+  "selector": {
+    "operating_mode": {
+      "options": {
+        "auto": "Automatique",
+        "comfort": "Confort",
+        "eco": "Éco",
+        "away": "Absence"
+      }
+    },
+    "heating_type": {
+      "options": {
+        "gas": "Gaz",
+        "electric": "Électrique"
+      }
+    }
+  }
+}
