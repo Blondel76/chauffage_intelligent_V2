@@ -1,13 +1,11 @@
 """Constants for the Gestion Chauffage integration."""
 
-from homeassistant.const import Platform
-
 DOMAIN = "gestion_chauffage"
 
-PLATFORMS: list[Platform] = [
-    Platform.SWITCH,
-    Platform.BUTTON,
-    Platform.SENSOR,
+PLATFORMS = [
+    "switch",
+    "button",
+    "sensor",
 ]
 
 CONF_MODE_SELECTOR = "mode_selector"
