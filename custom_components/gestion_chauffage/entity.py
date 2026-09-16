@@ -1,4 +1,4 @@
-"""Base entities and runtime data for Gestion Chauffage."""
+"""Base entities for the Gestion Chauffage integration."""
 
 from __future__ import annotations
 
@@ -13,14 +13,14 @@ from .const import DOMAIN, SECURITY_STATE_GRAY
 
 @dataclass
 class GestionChauffageRuntimeData:
-    """Runtime data shared by Gestion Chauffage entities."""
+    """Data shared by Gestion Chauffage entities."""
 
     heating_enabled: bool = False
     security_state: str = SECURITY_STATE_GRAY
 
 
 class GestionChauffageEntity(Entity):
-    """Base class for Gestion Chauffage entities."""
+    """Base entity for Gestion Chauffage."""
 
     _attr_has_entity_name = True
 
@@ -29,7 +29,7 @@ class GestionChauffageEntity(Entity):
         entry: ConfigEntry,
         runtime_data: GestionChauffageRuntimeData,
     ) -> None:
-        """Initialize the base entity."""
+        """Initialize the entity."""
 
         self._entry = entry
         self._runtime_data = runtime_data
