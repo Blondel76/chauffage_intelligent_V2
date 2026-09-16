@@ -7,22 +7,14 @@ from typing import Any
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from .const import (
-    CONF_BOILER_ENTITY,
-    CONF_HEATING_TYPE,
-    CONF_MODE_SELECTOR,
-    DOMAIN,
-    PLATFORMS,
-)
-from .entity import GestionChauffageRuntimeData
+from .const import DOMAIN, PLATFORMS
 
 
 async def async_setup(
     hass: HomeAssistant,
     config: dict[str, Any],
 ) -> bool:
-    """Set up Gestion Chauffage from YAML."""
-
+    """Set up Gestion Chauffage."""
     return True
 
 
@@ -32,14 +24,13 @@ async def async_setup_entry(
 ) -> bool:
     """Set up Gestion Chauffage from a config entry."""
 
+    from .entity import GestionChauffageRuntimeData
+
     runtime_data = GestionChauffageRuntimeData()
 
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = {
         "runtime_data": runtime_data,
-        CONF_MODE_SELECTOR: entry.data[CONF_MODE_SELECTOR],
-        CONF_HEATING_TYPE: entry.data[CONF_HEATING_TYPE],
-        CONF_BOILER_ENTITY: entry.data.get(CONF_BOILER_ENTITY),
     }
 
     await hass.config_entries.async_forward_entry_setups(
@@ -54,7 +45,7 @@ async def async_unload_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
 ) -> bool:
-    """Unload a config entry."""
+    """Unload a Gestion Chauffage config entry."""
 
     unload_ok = await hass.config_entries.async_unload_platforms(
         entry,
