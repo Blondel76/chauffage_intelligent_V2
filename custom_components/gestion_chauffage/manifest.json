@@ -1,9 +1,7 @@
 {
   "domain": "gestion_chauffage",
   "name": "Gestion Chauffage",
-  "codeowners": [
-    "@TON_UTILISATEUR_GITHUB"
-  ],
+  "codeowners": ["@Blondel76"],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/Blondel76/chauffage_intelligent_V2",
