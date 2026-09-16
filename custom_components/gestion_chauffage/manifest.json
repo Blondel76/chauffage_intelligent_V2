@@ -1,12 +1,15 @@
 {
   "domain": "gestion_chauffage",
   "name": "Gestion Chauffage",
-  "codeowners": [],
+  "codeowners": [
+    "@TON_UTILISATEUR_GITHUB"
+  ],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/TON_UTILISATEUR/TON_DEPOT",
   "integration_type": "service",
   "iot_class": "calculated",
+  "issue_tracker": "https://github.com/TON_UTILISATEUR/TON_DEPOT/issues",
   "requirements": [],
   "version": "1.0.0"
 }
