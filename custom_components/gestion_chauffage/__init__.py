@@ -50,6 +50,7 @@ async def async_unload_entry(
     if DOMAIN in hass.data:
         hass.data[DOMAIN].pop(entry.entry_id, None)
 
-        if not hass.datahass.data.pop(DOMAIN, None)
+        if not hass.data[DOMAIN]:
+            hass.data.pop(DOMAIN, None)
 
     return True
