@@ -27,4 +27,39 @@
         "data_description": {
           "mode_selector": "Sélectionnez une entité input_select ou select existante dans Home Assistant.",
           "heating_type": "Sélectionnez le type de chauffage de votre installation.",
-          "boiler_entity": "Sé
+          "boiler_entity": "Sélectionnez l'entité climate ou switch qui commande la chaudière. Ce choix est obligatoire pour un chauffage au gaz."
+        }
+      }
+    },
+    "error": {
+      "boiler_required": "Vous devez sélectionner une chaudière lorsque le type de chauffage est Gaz."
+    },
+    "abort": {
+      "already_configured": "Gestion Chauffage est déjà configuré.",
+      "reconfigure_successful": "La configuration a été mise à jour."
+    }
+  },
+  "entity": {
+    "switch": {
+      "general_heating": {
+        "name": "Chauffage général"
+      }
+    },
+    "button": {
+      "reset_heating_security": {
+        "name": "Réarmement sécurité chauffage"
+      }
+    },
+    "sensor": {
+      "heating_security_state": {
+        "name": "État de la sécurité chauffage",
+        "state": {
+          "gris": "Gris",
+          "vert": "Vert",
+          "orange": "Orange",
+          "rouge": "Rouge"
+        }
+      }
+    }
+  }
+}
