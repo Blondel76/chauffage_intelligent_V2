@@ -1,4 +1,4 @@
-"""Config flow for the Chauffage Intelligent integration."""
+"""Config flow for the Gestion Chauffage integration."""
 
 from __future__ import annotations
 
@@ -21,18 +21,20 @@ from .const import (
 
 
 def _get_schema(
-    user_input: dict[str, Any] | None = None,
+    suggested_values: dict[str, Any] | None = None,
 ) -> vol.Schema:
     """Return the configuration schema."""
 
-    user_input = user_input or {}
+    suggested_values = suggested_values or {}
 
     return vol.Schema(
         {
             vol.Required(
                 CONF_MODE_SELECTOR,
                 description={
-                    "suggested_value": user_input.get(CONF_MODE_SELECTOR)
+                    "suggested_value": suggested_values.get(
+                        CONF_MODE_SELECTOR
+                    )
                 },
             ): selector.EntitySelector(
                 selector.EntitySelectorConfig(
@@ -42,7 +44,7 @@ def _get_schema(
             ),
             vol.Required(
                 CONF_HEATING_TYPE,
-                default=user_input.get(
+                default=suggested_values.get(
                     CONF_HEATING_TYPE,
                     HEATING_TYPE_ELECTRIC,
                 ),
@@ -64,7 +66,9 @@ def _get_schema(
             vol.Optional(
                 CONF_BOILER_ENTITY,
                 description={
-                    "suggested_value": user_input.get(CONF_BOILER_ENTITY)
+                    "suggested_value": suggested_values.get(
+                        CONF_BOILER_ENTITY
+                    )
                 },
             ): selector.EntitySelector(
                 selector.EntitySelectorConfig(
@@ -76,11 +80,43 @@ def _get_schema(
     )
 
 
-class ChauffageIntelligentConfigFlow(
+def _validate_input(
+    user_input: dict[str, Any],
+) -> dict[str, str]:
+    """Validate the configuration form."""
+
+    errors: dict[str, str] = {}
+
+    heating_type = user_input[CONF_HEATING_TYPE]
+    boiler_entity = user_input.get(CONF_BOILER_ENTITY)
+
+    if (
+        heating_type == HEATING_TYPE_GAS
+        and not boiler_entity
+    ):
+        errors[CONF_BOILER_ENTITY] = "boiler_required"
+
+    return errors
+
+
+def _clean_input(
+    user_input: dict[str, Any],
+) -> dict[str, Any]:
+    """Clean configuration data before storing it."""
+
+    cleaned_input = dict(user_input)
+
+    if cleaned_input[CONF_HEATING_TYPE] == HEATING_TYPE_ELECTRIC:
+        cleaned_input.pop(CONF_BOILER_ENTITY, None)
+
+    return cleaned_input
+
+
+class GestionChauffageConfigFlow(
     config_entries.ConfigFlow,
     domain=DOMAIN,
 ):
-    """Handle the Chauffage Intelligent configuration flow."""
+    """Handle the Gestion Chauffage configuration flow."""
 
     VERSION = 1
     MINOR_VERSION = 1
@@ -94,32 +130,52 @@ class ChauffageIntelligentConfigFlow(
         errors: dict[str, str] = {}
 
         if user_input is not None:
-            heating_type = user_input[CONF_HEATING_TYPE]
-            boiler_entity = user_input.get(CONF_BOILER_ENTITY)
+            errors = _validate_input(user_input)
 
-            if (
-                heating_type == HEATING_TYPE_GAS
-                and not boiler_entity
-            ):
-                errors[CONF_BOILER_ENTITY] = "boiler_required"
-
-            else:
-                # Une seule configuration de l'intégration est autorisée.
+            if not errors:
                 await self.async_set_unique_id(DOMAIN)
                 self._abort_if_unique_id_configured()
 
-                # La chaudière n'est pas enregistrée pour un chauffage
-                # électrique.
-                if heating_type == HEATING_TYPE_ELECTRIC:
-                    user_input.pop(CONF_BOILER_ENTITY, None)
+                cleaned_input = _clean_input(user_input)
 
                 return self.async_create_entry(
-                    title="Chauffage Intelligent",
-                    data=user_input,
+                    title="Gestion Chauffage",
+                    data=cleaned_input,
                 )
 
         return self.async_show_form(
             step_id="user",
             data_schema=_get_schema(user_input),
+            errors=errors,
+        )
+
+    async def async_step_reconfigure(
+        self,
+        user_input: dict[str, Any] | None = None,
+    ) -> ConfigFlowResult:
+        """Handle reconfiguration of the integration."""
+
+        entry = self._get_reconfigure_entry()
+        errors: dict[str, str] = {}
+
+        if user_input is not None:
+            errors = _validate_input(user_input)
+
+            if not errors:
+                cleaned_input = _clean_input(user_input)
+
+                return self.async_update_reload_and_abort(
+                    entry,
+                    data_updates=cleaned_input,
+                )
+
+        suggested_values = dict(entry.data)
+
+        if user_input is not None:
+            suggested_values.update(user_input)
+
+        return self.async_show_form(
+            step_id="reconfigure",
+            data_schema=_get_schema(suggested_values),
             errors=errors,
         )
